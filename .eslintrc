@@ -1,0 +1,47 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": [2, "never"],
+    "eqeqeq": [2, "allow-null"],
+    "no-underscore-dangle": ["off"],
+    "space-before-function-paren": ["off"],
+    "no-console": ["off"],
+    "new-cap": ["off"],
+    "arrow-body-style": ["off"],
+    "generator-star-spacing": 0,
+    "react/forbid-prop-types": ["off"],
+    "no-nested-ternary": ["off"],
+    "import/prefer-default-export": ["off"],
+    "camelcase": ["error", { "properties": "always" }],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "**/test/**",
+        "**/webpack.config.*.js",
+        "**/__tests__/**",
+      ]
+    }],
+    # https://github.com/benmosher/eslint-plugin-import/issues/544
+    "import/no-named-as-default": ["off"],
+    "react/require-default-props": ["off"],
+    # below line: prevent react-router <Link /> from triggering false positive
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [],
+      "specialLink": [ "hrefLeft", "hrefRight" ],
+      "aspects": [ "noHref", "invalidHref", "preferButton" ]
+    }],
+    "prefer-destructuring": ["error", {"object": true, "array": false}]
+  },
+}
