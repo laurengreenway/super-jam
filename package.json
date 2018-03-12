@@ -6,6 +6,8 @@
     "axios": "^0.18.0",
     "express": "^4.16.2",
     "lodash": "^4.17.5",
+    "mongoose": "^5.0.8",
+    "normalize.css": "^8.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -19,8 +21,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "server": "nodemon lib/server.js",
-    "start":
-      "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
