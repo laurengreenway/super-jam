@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import InfoCard from './components/InfoCard'
+import Timer from './components/Timer'
 import { Wrapper, List, Title } from './components/StyledComponents'
 
 class App extends Component {
@@ -12,7 +13,7 @@ class App extends Component {
   }
   componentDidMount() {
     axios.get('/skaters').then(res => {
-      const { skaters } = res.data
+      const skaters = res.data.payload
       this.setState({ skaters })
     })
   }
@@ -24,7 +25,6 @@ class App extends Component {
   }
   render() {
     const { skaters } = this.state
-    console.log(skaters)
     return (
       <Wrapper className="App">
         <Title>
@@ -33,7 +33,10 @@ class App extends Component {
             💫
           </span>
         </Title>
-        <List>{skaters.map(skater => <InfoCard data={skater} />)}</List>
+        <Timer />
+        <List>
+          {skaters.map(skater => <InfoCard key={skater._id} data={skater} />)}
+        </List>
       </Wrapper>
     )
   }
