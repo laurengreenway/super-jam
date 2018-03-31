@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import axios from 'axios'
 
 import {
   TimerContainer,
@@ -41,6 +42,7 @@ class Timer extends React.Component {
       running: !running,
       elapsedTime: null
     })
+    this.save()
   }
 
   countdown = () => {
@@ -65,6 +67,14 @@ class Timer extends React.Component {
         ...laps,
         [skater]: [...laps[skater], lap]
       }
+    })
+  }
+
+  save = () => {
+    // const { skater1, skater2 } = this.state.laps
+    axios.post('/jams').then((req, res) => {
+      console.log(req.body)
+      console.log(res)
     })
   }
 

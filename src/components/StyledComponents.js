@@ -26,7 +26,7 @@ export const ListItem = styled.li`
   margin-right: 20px;
   background: linear-gradient(0.45turn, #009cee, #0088d0, #21759b);
   box-shadow: 6px 6px 16px -8px rgba(0, 0, 0, 0.75);
-  &:nth-child(3n + 3) {
+  &:nth-child(3n) {
     margin-right: 0;
   }
 `
