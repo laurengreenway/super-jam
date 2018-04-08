@@ -59,3 +59,22 @@ export const JammerContainer = styled.div`
   flex-direction: column;
   padding-right: 20px;
 `
+
+export const NavContainer = styled.nav`
+  width: 100%;
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  ul {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+    border: 1px solid blue;
+    li {
+      padding: 7px 15px;
+    }
+  }
+`

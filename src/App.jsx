@@ -7,7 +7,8 @@ import axios from 'axios'
 import InfoCard from './components/InfoCard'
 import SkaterPage from './components/SkaterPage'
 import Timer from './components/Timer'
-import { Wrapper, List, Title } from './components/StyledComponents'
+import Nav from './components/Nav'
+import { Wrapper, List } from './components/StyledComponents'
 
 class App extends Component {
   constructor() {
@@ -53,20 +54,15 @@ class App extends Component {
   render() {
     const { skaters, skater1, skater2 } = this.state
     return (
-      <Wrapper className="App">
-        <Title>
-          SuperJam{' '}
-          <span role="img" aria-label="star emoji">
-            💫
-          </span>
-        </Title>
-        <Router>
+      <Router>
+        <Wrapper className="App">
+          <Nav />
           <Switch>
             <Route
               path="/"
               exact
               render={() => {
-                return <p>Welcome to SuperJam!</p>
+                return <div />
               }}
             />
             <Route
@@ -124,8 +120,8 @@ class App extends Component {
               }}
             />
           </Switch>
-        </Router>
-      </Wrapper>
+        </Wrapper>
+      </Router>
     )
   }
 }
