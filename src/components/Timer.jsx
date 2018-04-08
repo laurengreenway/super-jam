@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import axios from 'axios'
 
@@ -11,12 +12,9 @@ import {
 class Timer extends React.Component {
   state = {
     running: false,
-    laps: {
-      skater1: [],
-      skater2: []
-    },
     startTime: null,
-    elapsedTime: null
+    log: [],
+    success: false
   }
 
   start = e => {
@@ -26,60 +24,71 @@ class Timer extends React.Component {
     if (!running) {
       this.setState({
         running: !running,
-        startTime,
-        laps: {
-          skater1: [startTime],
-          skater2: [startTime]
-        }
+        startTime
       })
     }
   }
 
   stop = e => {
     e.preventDefault()
-    const { running } = this.state
+    const { running, startTime, log } = this.state
+    const timestamp = moment.now()
+    const elapsedTime = timestamp - startTime
+    const data = {
+      elapsedTime,
+      log
+    }
+    this.save(data)
     this.setState({
-      running: !running,
-      elapsedTime: null
+      running: !running
     })
-    this.save()
   }
 
-  countdown = () => {
-    const { running, startTime } = this.state
-    const timestamp = moment.now()
-    console.log(startTime)
-    console.log(timestamp)
-    const elapsedTime = timestamp - startTime
-    console.log('in countdown', elapsedTime)
-    while (running && elapsedTime < 120000) {
-      this.setState({ elapsedTime })
-    }
+  // TODO: need visual element to timer, must max out at 2 min
+
+  // TODO: 30s between jams
+  // TODO: concept of practice
+
+  reset = () => {
+    this.props.resetSkater()
+    this.setState({
+      running: false,
+      startTime: null,
+      log: [],
+      success: false
+    })
   }
 
   lap = e => {
     e.preventDefault()
-    const skater = e.target.name
+
+    const { startTime, log } = this.state
+
+    const skaterId = e.target.name
     const lap = moment.now()
-    const { laps } = this.state
+    const time = lap - startTime
+    const newLog = {
+      skaterId,
+      time
+    }
     this.setState({
-      laps: {
-        ...laps,
-        [skater]: [...laps[skater], lap]
-      }
+      log: [...log, newLog]
     })
   }
 
-  save = () => {
-    // const { skater1, skater2 } = this.state.laps
-    axios.post('/jams').then((req, res) => {
-      console.log(req.body)
-      console.log(res)
+  save = data => {
+    console.log(data)
+    // does not currently save to db, how do i view this in compass?
+    axios.post('/jams', data).then(res => {
+      if (res.status === 200) this.setState({ success: true })
+      // if (res.status === 500)
+      this.reset()
     })
   }
 
   render() {
-    const { running, elapsedTime, laps } = this.state
+    const { running, elapsedTime, success } = this.state
+    const { skater1, skater2 } = this.props
     return (
       <TimerContainer>
         <ClockContainer>
@@ -93,28 +102,41 @@ class Timer extends React.Component {
               Touching this should start the jam clock
             </button>
           )}
+          {success && <p>Jam saved successfully</p>}
         </ClockContainer>
         <JammerContainer>
           Dropdown menu to select from existing skaters... could possibly also
           be a text input that matches the number to the skaters in the
           database.
-          <button onClick={this.lap} disabled={!running} name="skater1">
-            Pass Tracker
+          <button
+            onClick={this.lap}
+            disabled={!running}
+            name={`${skater1 && skater1._id}`}
+          >
+            Pass Tracker {skater1 && skater1.derbyName}
           </button>
-          {laps.skater1.map(lap => <p key={lap}>{lap}</p>)}
         </JammerContainer>
         <JammerContainer>
           Dropdown menu to select from existing skaters... could possibly also
           be a text input that matches the number to the skaters in the
           database.
-          <button onClick={this.lap} disabled={!running} name="skater2">
-            Pass Tracker
+          <button
+            onClick={this.lap}
+            disabled={!running}
+            name={`${skater2 && skater2._id}`}
+          >
+            Pass Tracker {skater2 && skater2.derbyName}
           </button>
-          {laps.skater2.map(lap => <p key={lap}>{lap}</p>)}
         </JammerContainer>
       </TimerContainer>
     )
   }
+}
+
+Timer.propTypes = {
+  skater1: PropTypes.object,
+  skater2: PropTypes.object,
+  resetSkater: PropTypes.func
 }
 
 export default Timer
