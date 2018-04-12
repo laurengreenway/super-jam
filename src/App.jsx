@@ -115,7 +115,6 @@ class App extends Component {
                 const skater = skaters.find(s => {
                   return s._id === id
                 })
-                console.log(skater)
                 return <SkaterPage skater={skater} />
               }}
             />

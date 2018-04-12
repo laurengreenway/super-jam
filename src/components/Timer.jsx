@@ -8,6 +8,7 @@ import {
   JammerContainer,
   ClockContainer
 } from './StyledComponents'
+// import SkaterPage from './SkaterPage'
 
 class Timer extends React.Component {
   state = {
@@ -20,11 +21,25 @@ class Timer extends React.Component {
   start = e => {
     e.preventDefault()
     const { running } = this.state
+    const { skater1, skater2 } = this.props
+    const log = [
+      {
+        skaterId: skater1._id,
+        time: 0,
+        pass: 0
+      },
+      {
+        skaterId: skater2._id,
+        time: 0,
+        pass: 0
+      }
+    ]
     const startTime = moment.now()
     if (!running) {
       this.setState({
         running: !running,
-        startTime
+        startTime,
+        log
       })
     }
   }
@@ -36,7 +51,8 @@ class Timer extends React.Component {
     const elapsedTime = timestamp - startTime
     const data = {
       elapsedTime,
-      log
+      log,
+      date: new Date()
     }
     this.save(data)
     this.setState({
@@ -65,12 +81,15 @@ class Timer extends React.Component {
     const { startTime, log } = this.state
 
     const skaterId = e.target.name
+    const lapsPerSkater = log.filter(l => l.skaterId === skaterId)
     const lap = moment.now()
     const time = lap - startTime
     const newLog = {
       skaterId,
-      time
+      time,
+      pass: lapsPerSkater.length
     }
+    console.log(newLog)
     this.setState({
       log: [...log, newLog]
     })

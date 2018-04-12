@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Title, NavContainer } from './StyledComponents'
+import logo from '../superjam-logo.svg'
 
 // eslint-disable-next-line
 class Nav extends Component {
@@ -8,6 +9,7 @@ class Nav extends Component {
     return (
       <NavContainer>
         <Title>
+          <logo />
           SuperJam{' '}
           <span role="img" aria-label="star emoji">
             💫

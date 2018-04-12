@@ -1,25 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { Chart } from './Chart'
 
 // eslint-disable-next-line
 class SkaterPage extends React.Component {
   state = {
-    skater: null
+    skaterData: null
   }
   componentDidMount() {
     const { skater } = this.props
-    axios.get(`skaters/${skater._id}`).then(res => {
+    console.log('did mount', skater)
+    axios.get(`${skater._id}`).then(res => {
+      console.log('reso', res)
       const skaterData = res.data.payload
-      this.setState({ skater: skaterData })
+      console.log('skater to be set to state', skaterData)
+      this.setState({ skaterData })
     })
   }
   render() {
-    const { skater } = this.state
+    const { skaterData } = this.state
+    const { skater } = this.props
+    // console.log('sk8r', skater)
+    console.log('data sk8r', skaterData)
     return (
       <div>
         <h2>This is an individual skater page</h2>
-        <span>{skater.derbyName}</span>
+        {skaterData && (
+          <div>
+            you have data!{' '}
+            {skaterData.map(sd => {
+              console.log(sd)
+              return (
+                <div>
+                  <p>{sd.date}</p>
+                  <Chart data={sd} skaterId={skater._id} />
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }

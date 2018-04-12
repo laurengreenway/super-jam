@@ -16,7 +16,8 @@
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
-    "styled-components": "^3.1.6"
+    "styled-components": "^3.1.6",
+    "victory-chart": "^25.2.3"
   },
   "proxy": "http://localhost:8080/",
   "scripts": {
