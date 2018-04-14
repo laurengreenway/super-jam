@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Title, NavContainer } from './StyledComponents'
-import logo from '../superjam-logo.svg'
+import styled from 'styled-components'
+import { NavContainer } from './StyledComponents'
+import { Logo } from './Logo'
+
+const LogoContainer = styled.div`
+  max-width: 250px;
+  padding: 15px;
+  svg {
+    width: 100%;
+    fill: white;
+  }
+`
 
 // eslint-disable-next-line
 class Nav extends Component {
   render() {
+    // console.log(logo)
     return (
       <NavContainer>
-        <Title>
-          <logo />
-          SuperJam{' '}
-          <span role="img" aria-label="star emoji">
-            💫
-          </span>
-        </Title>
+        <LogoContainer>
+          <Logo />
+        </LogoContainer>
         <ul>
           <li>
             <NavLink to="/">Home</NavLink>

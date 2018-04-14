@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { VictoryChart, VictoryBar, VictoryStack } from 'victory-chart'
+import { VictoryChart, VictoryBar, VictoryGroup } from 'victory-chart'
 
 export const Chart = props => {
   console.log(props)
@@ -11,10 +11,20 @@ export const Chart = props => {
   console.log(opponent)
   return (
     <VictoryChart>
-      <VictoryStack>
+      <VictoryGroup
+        offset={20}
+        colorScale="blue"
+        animate={{
+          duration: 1000,
+          onLoad: { duration: 500 }
+        }}
+        labels={['this skater', 'the opponent']}
+        width={300}
+        height={300}
+      >
         <VictoryBar data={skaterData} x="pass" y="time" />
         <VictoryBar data={opponent} x="pass" y="time" />
-      </VictoryStack>
+      </VictoryGroup>
     </VictoryChart>
   )
 }

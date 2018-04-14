@@ -115,7 +115,7 @@ class App extends Component {
                 const skater = skaters.find(s => {
                   return s._id === id
                 })
-                return <SkaterPage skater={skater} />
+                return <SkaterPage skater={skater} skaters={skaters} />
               }}
             />
           </Switch>
