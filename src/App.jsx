@@ -70,22 +70,13 @@ class App extends Component {
               path="/timer"
               render={() => {
                 return (
-                  <div>
-                    <Timer
-                      skater1={skater1}
-                      skater2={skater2}
-                      resetSkater={this.resetSkater}
-                    />
-                    <List>
-                      {skaters.map(skater => (
-                        <InfoCard
-                          handleClick={this.setSkater}
-                          key={skater._id}
-                          data={skater}
-                        />
-                      ))}
-                    </List>
-                  </div>
+                  <Timer
+                    skater1={skater1}
+                    skater2={skater2}
+                    resetSkater={this.resetSkater}
+                    skaters={skaters}
+                    setSkater={this.setSkater}
+                  />
                 )
               }}
             />

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   max-width: 960px;
   margin: 0 auto;
+  transition: all 0.3s ease-in-out;
   @media (max-width: 768px) {
     padding: 0 50px;
   }
@@ -15,6 +16,7 @@ export const List = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 `
 
 export const ListItem = styled.li`
@@ -51,13 +53,17 @@ export const ClockContainer = styled.div`
   width: 100%;
   text-align: center;
   margin-bottom: 30px;
-`
-
-export const JammerContainer = styled.div`
-  width: 50%;
   display: flex;
   flex-direction: column;
-  padding-right: 20px;
+  justify-content: center;
+  align-items: center;
+`
+
+export const Controls = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `
 
 export const NavContainer = styled.nav`
@@ -84,5 +90,32 @@ export const NavContainer = styled.nav`
         font-style: italic;
       }
     }
+  }
+`
+
+export const ClockText = styled.span`
+  font-size: 10rem;
+  text-align: center;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+  font-style: italic;
+`
+
+export const Button = styled.button`
+  background: black;
+  border-radius: 5px;
+  padding: 15px 0px;
+  color: #009cee;
+  box-shadow: 6px 6px 16px -8px rgba(0, 0, 0, 0.75);
+  margin-top: 25px;
+  width: 33%;
+  max-width: 350px;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-style: italic;
+  &:disabled {
+    border: 1px solid #009cee;
+    background: white;
+    box-shadow: none;
   }
 `
